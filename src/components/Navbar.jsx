@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Moon, Star } from "lucide-react";
+import { Menu, X, Moon, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "../lib/utils";
 
@@ -31,7 +31,7 @@ const Navbar = ({ showStars, setShowStars }) => {
         isScrolled ? "shadow-md py-3" : "py-5"
       )}
     >
-      <div className="max-w-7xl mx-auto px-4 lg:px-[150px] flex items-center justify-between ">
+      <div className="max-w-7xl mx-auto px-4 lg:px-[150px] flex items-center justify-between">
         {/* Logo */}
         <a
           href="#hero"
@@ -51,8 +51,17 @@ const Navbar = ({ showStars, setShowStars }) => {
               {item.name}
             </a>
           ))}
-          {/* 🌟 Star Toggle */}
-         
+
+          {/* 🌟 Download Resume Button */}
+          <a
+  href="/resume.pdf"
+  download
+  className="flex items-center gap-2 px-5 py-2 rounded-full text-white text-sm font-medium bg-violet-500 hover:bg-violet-600 transition-all duration-300"
+>
+  <Download size={18} />
+  Download Resume
+</a>
+
         </div>
 
         {/* Mobile Menu Button */}
@@ -80,6 +89,18 @@ const Navbar = ({ showStars, setShowStars }) => {
               {item.name}
             </a>
           ))}
+
+          {/* 🌟 Download Resume Button (Mobile) */}
+         <a
+  href="/resume.pdf"
+  download
+  onClick={() => setIsMenuOpen(false)}
+  className="flex items-center gap-2 px-5 py-2 rounded-full text-white text-sm font-medium bg-violet-500 hover:bg-violet-600 transition-all duration-300"
+>
+  <Download size={18} />
+  Download Resume
+</a>
+
           <button className="text-gray-800 hover:text-violet-500">
             <Moon size={24} />
           </button>
