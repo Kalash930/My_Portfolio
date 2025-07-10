@@ -13,36 +13,50 @@ export const HeroSection = () => {
     const el = paraRef.current;
     if (!el) return;
 
-    // Split paragraph into spans per letter
+    // Get original paragraph text
     const text = el.textContent;
-   el.innerHTML = text
-  .split("")
-  .map((char) =>
-    char === " "
-      ? `<span class="inline-block w-1">&nbsp;</span>`
-      : `<span class="inline-block text-zinc-800">${char}</span>`
-  )
-  .join("");
 
+    // Replace text with span-wrapped characters
+    el.innerHTML = text
+      .split("")
+      .map((char) =>
+        char === " "
+          ? `<span class="inline-block w-1">&nbsp;</span>`
+          : `<span class="inline-block">${char}</span>`
+      )
+      .join("");
 
-    // Animate letters
-   gsap.to(el.querySelectorAll("span"), {
-  color: "#7969C9", // or use "var(--primary)" if using Tailwind theme color
-  stagger: 0.05,
-  scrollTrigger: {
-    trigger: el,
-    start: "top 40%",  // starts when para is at 80% of viewport
-    end: "bottom 20%", // ends when paragraph scrolls out of view
-    scrub: 1,
-  },
-});
-gsap.to(paraRef.current, {
-  y: -10,
-  duration: 2,
-  repeat: -1,
-  yoyo: true,
-  ease: "sine.inOut"
-});
+    const spans = el.querySelectorAll("span");
+
+    // Set all letters to invisible and gray initially
+    gsap.set(spans, {
+      opacity: 0,
+      color: "##494949", // Tailwind's text-zinc-800
+    });
+
+    // Scroll animation
+    gsap.to(spans, {
+      opacity: 1,
+      color: "#494949", // You can replace with var(--primary-color) if using CSS variable
+      duration: 0.3,
+      stagger: 0.015,
+      scrollTrigger: {
+        trigger: el,
+        start: "top 80%",      // Only starts when paragraph is mostly in view
+        end: "bottom 40%",
+        scrub: false,          // No jumpy animation
+        toggleActions: "play none none none", // Only plays once
+      },
+    });
+
+    // Floating animation (optional)
+    gsap.to(el, {
+      y: -10,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
   }, []);
 
   return (
@@ -50,7 +64,7 @@ gsap.to(paraRef.current, {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center px-6 md:px-10 text-center"
     >
-      <div className="max-w-4xl  z-10 space-y-8">
+      <div className="max-w-4xl z-10 space-y-8">
         <h1 className="text-4xl md:text-6xl pt-8 font-bold tracking-tight text-primary">
           <TypeAnimation
             sequence={[
@@ -70,9 +84,13 @@ gsap.to(paraRef.current, {
         {/* Scroll-animated paragraph */}
         <p
           ref={paraRef}
-          className="text-lg  md:text-2xl max-w-10xl mx-auto    pt-10   font-medium leading-relaxed"
+          className="text-lg md:text-2xl max-w-5xl italic mx-auto pt-10 font-medium leading-relaxed"
         >
-         Versatile Full-Stack Developer passionate about crafting intuitive, high-performance web applications with seamless user experiences. From pixel-perfect front-end designs to robust back-end architecture, I merge creativity with modern technologies to build scalable, secure, and impactful digital solutions
+          Versatile Full-Stack Developer passionate about crafting intuitive,
+          high-performance web applications with seamless user experiences. From
+          pixel-perfect front-end designs to robust back-end architecture, I
+          merge creativity with modern technologies to build scalable, secure,
+          and impactful digital solutions.
         </p>
 
         <div className="pt-4">

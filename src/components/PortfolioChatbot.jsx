@@ -82,7 +82,7 @@ export const PortfolioChatbot = () => {
     <section id="chatbot" className="bg-background py-16 px-6">
       <div className="max-w-3xl mx-auto bg-card rounded-xl shadow-lg p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-bold text-primary flex ">
+          <h2 className="text-3xl font-bold text-primary  ">
             🤖 Ask Me Anything
              <span className="dot-loader ml-1">
     <span className="dot delay-0">.</span>
